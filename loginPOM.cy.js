@@ -4,38 +4,38 @@ import loginPage from "../../../POM/OrangeHRM/Login/Login";
 describe('Login Feature',() => {
     // User Login with Valid Credentials
       it('User Login with Valid credentials',() => {
-          cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-          loginPage.textLogin().should('have.text','Login');
-          loginPage.inputUsername().type('Admin');
-          loginPage.inputPassword().type('admin123');
-          cy.intercept("GET","https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/action-summary").as("actionSummary");
-          loginPage.buttonLogin().click();
-          cy.wait("@actionSummary");
-          cy.get('[class="oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module"]').should('have.text','Dashboard')
-       });
+        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
+        loginPage.textLogin().should('have.text','Login');
+        loginPage.inputUsername().type('Admin');
+        loginPage.inputPassword().type('admin123');
+        cy.intercept("GET","https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/action-summary").as("actionSummary");
+        loginPage.buttonLogin().click();
+        cy.wait("@actionSummary");
+        cy.get('[class="oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module"]').should('have.text','Dashboard')
+        });
   
     // User Login with Invalid Credentials
       it('User Login with Invalid Username', () => {
-          cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
-          loginPage.textLogin().should('have.text','Login');
-          loginPage.inputUsername().type('Adminn'); 
-          loginPage.inputPassword().type('admin1234');
-          cy.intercept("GET","**/core/i18n/messages").as("messages");
-          loginPage.buttonLogin().click();
-          cy.wait('@messages').its('response.statusCode').should('eq', 304);
-          cy.get('[class="oxd-text oxd-text--p oxd-alert-content-text"]').should('have.text','Invalid credentials');  // Memastikan pesan error tampil
+        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+        loginPage.textLogin().should('have.text','Login');
+        loginPage.inputUsername().type('Adminn'); 
+        loginPage.inputPassword().type('admin1234');
+        cy.intercept("GET","**/core/i18n/messages").as("messages");
+        loginPage.buttonLogin().click();
+        cy.wait('@messages').its('response.statusCode').should('eq', 304);
+        cy.get('[class="oxd-text oxd-text--p oxd-alert-content-text"]').should('have.text','Invalid credentials');  // Memastikan pesan error tampil
         });
   
     //User Login with Invalid Password
       it('User Login with Invalid Password', () => {
-          cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
-          loginPage.textLogin().should('have.text','Login');
-          loginPage.inputUsername().type('Admin'); 
-          loginPage.inputPassword().type('user1234');
-          cy.intercept("GET","**/core/i18n/messages").as("messages");
-          loginPage.buttonLogin().click();
-          cy.wait('@messages').its('response.statusCode').should('eq', 304);
-          cy.get('[class="oxd-text oxd-text--p oxd-alert-content-text"]').should('have.text','Invalid credentials');  // Memastikan pesan error tampil
+        cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+        loginPage.textLogin().should('have.text','Login');
+        loginPage.inputUsername().type('Admin'); 
+        loginPage.inputPassword().type('user1234');
+        cy.intercept("GET","**/core/i18n/messages").as("messages");
+        loginPage.buttonLogin().click();
+        cy.wait('@messages').its('response.statusCode').should('eq', 304);
+        cy.get('[class="oxd-text oxd-text--p oxd-alert-content-text"]').should('have.text','Invalid credentials');  // Memastikan pesan error tampil
         });
 
     //User Login with Invalid Username and Invalid Password
