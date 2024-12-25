@@ -10,7 +10,7 @@ describe('Login Feature',() => {
         loginPage.inputPassword().type('admin123');
         cy.intercept("GET","https://opensource-demo.orangehrmlive.com/web/index.php/api/v2/dashboard/employees/action-summary").as("actionSummary");
         loginPage.buttonLogin().click();
-        cy.wait("@actionSummary");
+        cy.wait("@actionSummary").its('response.statusCode').should('eq', 200);;
         cy.get('[class="oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module"]').should('have.text','Dashboard')
         });
   
